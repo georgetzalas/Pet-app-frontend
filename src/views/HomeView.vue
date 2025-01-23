@@ -13,18 +13,8 @@ const { userData } = useApplicationStore();
                     </div>
                     <div>
                         <p>
-                            Logged in as: <strong>{{ userData.username }}</strong>
+                            Welcome <strong>{{ userData.username }}</strong>
                         </p>
-                        <ul>
-                            <!-- TODO enable.
-                            <li>
-                                <RouterLink :to="{ name: 'students' }">Manage Students</RouterLink>
-                            </li>
-                            -->
-                            <li>
-                                <RouterLink :to="{ name: 'courses' }">Manage Courses</RouterLink>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>

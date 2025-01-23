@@ -12,17 +12,17 @@ const { userData } = useApplicationStore();
                         <h1 class="fs-3">Profile</h1>
                     </div>
                     <div>
-                        <!-- @EXERCISE: Create a nice component to present user data -->
-                        
                 <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">{{ userData.username }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Details</h6>
-                    <p class="card-text"> id: {{ userData.id }}</p>
-                    <p class="card-text"> roles: {{ userData.roles }}</p>
+                    <h5>Name: {{ userData.name }}</h5>
+                    <h5>Email: {{ userData.email }}</h5>
+                    <h5>Role: {{ userData.roles[0] }}</h5>
+                    <h5 v-if="userData.roles[0]==='ROLE_SHELTER'">Region: {{ userData.region }}</h5>
+                    <h5 v-else>Surname: {{ userData.surname }}</h5>
                 </div>
                 </div>
-                <pre>{{ userData }}</pre>
                     </div>
                 </div>
             </div>
