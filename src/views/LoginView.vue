@@ -55,11 +55,9 @@ onBeforeMount(() => {
 </script>
 
 <template>
-    <div class="bg-body-tertiary">
-        <div class="container">
-            <div class="row py-4 px-3">
-                <div class="col-4">
-                    <div class="mb-4">
+    <div class="d-flex justify-content-center align-items-center vh-100 bg-body-secondary">
+        <div class="card p-4 shadow-lg">
+                    <div class="mb-4 text-center">
                         <h1 class="fs-3">Login</h1>
                     </div>
                     <div class="spinner-border" role="status" v-if="loading">
@@ -67,19 +65,12 @@ onBeforeMount(() => {
                     </div>
                     <form v-else>
                         <div class="mb-2" v-if="authenticationFailed">
-                            <!--
-              @EXERCISE: Be more specific.
-              E.g., user does not exist, credentials are not valid, etc.
-              Always consider security, i.e., sometimes you may not want to unveil information.
-              -->
                             <div class="alert alert-danger" role="alert">
                                 Authentication failed!
                             </div>
                         </div>
                         <div class="mb-2">
-                            <label for="usernameFormControl" class="form-label mb-1"
-                                >Email address or Username</label
-                            >
+                            <label for="usernameFormControl" class="form-label mb-1">Username</label>
                             <input
                                 v-model="credentials.username"
                                 type="text"
@@ -88,9 +79,7 @@ onBeforeMount(() => {
                             />
                         </div>
                         <div class="mb-2">
-                            <label for="passwordFormControl" class="form-label mb-1"
-                                >Password</label
-                            >
+                            <label for="passwordFormControl" class="form-label mb-1">Password</label>
                             <input
                                 v-model="credentials.password"
                                 type="password"
@@ -98,15 +87,8 @@ onBeforeMount(() => {
                                 id="passwordFormControl"
                             />
                         </div>
-                        <button @click="onFormSubmit" type="submit" class="btn btn-primary">
-                            Login
-                            <span class="fst-italic" v-if="credentials.username"
-                                >as {{ credentials.username }}</span
-                            >
-                        </button>
+                        <button @click="onFormSubmit" type="submit" class="btn btn-primary w-100">Login</button>
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
 </template>

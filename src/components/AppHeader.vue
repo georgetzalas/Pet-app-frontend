@@ -12,7 +12,7 @@ const applicationStore = useApplicationStore();
                     href="/"
                     class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
                 >
-                    <span class="fs-5 fw-bolder text-white">API Client</span>
+                    <span class="fs-5 fw-bolder text-white">Pet App</span>
                 </a>
                 <ul class="nav nav-pills">
                     <!-- @EXERCISE: Add different color to active link (improve UX/UX). -->
@@ -44,14 +44,15 @@ const applicationStore = useApplicationStore();
                         >
                     </li>
                     <li class="nav-item" v-if="applicationStore.isAuthenticated === false">
-                        <router-link :to="{ name: 'login' }" class="nav-link text-white"
-                            >Login</router-link
-                        >
+                        <router-link :to="{ name: 'login' }" class="nav-link text-white">Login</router-link>
                     </li>
+            
+                    <li class="nav-item" v-if="applicationStore.isAuthenticated === false">
+                        <router-link :to="{ name: 'signup' }" class="nav-link text-white">Sign up</router-link>
+                    </li>
+            
                     <li class="nav-item" v-if="applicationStore.isAuthenticated === true">
-                        <router-link :to="{ name: 'logout' }" class="nav-link text-white"
-                            >Logout</router-link
-                        >
+                        <router-link :to="{ name: 'logout' }" class="nav-link text-white">Logout</router-link>
                     </li>
                 </ul>
             </div>
