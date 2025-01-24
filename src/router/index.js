@@ -99,6 +99,37 @@ const router = createRouter({
             component: () => import('../views/SignUpView.vue')
         },
         {
+            path: '/users',
+            name: 'users',
+            component: () => import('../views/UsersView.vue')
+        },
+        {
+            path: '/user/:id',
+            name: 'user',
+            component: () => import('../views/UserView.vue'),
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: 'details',
+                    name: 'user-details',
+                    component: () => import('../views/UserDetailsView.vue'),
+                    meta: { requiresAuth: true }
+                },
+                {
+                    path: 'edit',
+                    name: 'user-edit',
+                    component: () => import('../views/UserEditView.vue'),
+                    meta: { requiresAuth: true }
+                },
+                {
+                    path: 'delete',
+                    name: 'user-delete',
+                    component: () => import('../views/UserDeleteView.vue'),
+                    meta: { requiresAuth: true }
+                }
+            ]
+        },
+        {
             path: '/logout',
             name: 'logout',
             component: () => import('../views/LogoutView.vue'),

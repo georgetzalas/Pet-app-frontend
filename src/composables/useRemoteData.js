@@ -6,7 +6,7 @@ const store = useApplicationStore();
 export function useRemoteData(urlRef, authRef, methodRef = ref('GET'), bodyRef = ref(null)) {
     const data = ref(null);
     const error = ref(null);
-    const loading = ref(false);
+    const loading = ref(true);
 
     const performRequest = () => {
         const headers = {
