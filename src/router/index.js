@@ -140,25 +140,25 @@ const router = createRouter({
             path: '/adoption-request-create',
             name: 'adoption-request-create',
             component: () => import('../views/AdoptionRequestCreateView.vue'),
-            meta: { requiresAuth: true, requiredRole: true, requiredRole: ['ROLE_CITIZEN']},
+            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_CITIZEN']},
         },
         {
             path: '/adoption-requests',
             name: 'adoption-requests',
             component: () => import('../views/AdoptionRequestsView.vue'),
-            meta: { requiresAuth: true, requiredRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
+            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
         },
         {
             path: '/adoption-request/:id',
             name: 'adoption-request',
             component: () => import('../views/AdoptionRequestView.vue'),
-            meta: { requiresAuth: true, requiredRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
+            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
             children: [
                 {
                     path: 'adoption-request-details',
                     name: 'adoption-request-details',
                     component: () => import('../views/AdoptionRequestDetailsView.vue'),
-                    meta: { requiresAuth: true, requiredRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
                 },
                 {
                     path: 'adoption-request-delete',
@@ -170,10 +170,49 @@ const router = createRouter({
                     path: 'adoption-request-edit',
                     name: 'adoption-request-edit',
                     component: () => import('../views/AdoptionRequestEditView.vue'),
-                    meta: { requiresAuth: true, requiredRole: true, requiredRole: ['ROLE_SHELTER']}
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_SHELTER']}
                 }
             ]
         },
+        {
+            path: '/pet-create',
+            name: 'pet-create',
+            component: () => import('../views/PetCreateView.vue'),
+            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_SHELTER']},
+        },
+        {
+            path: '/pets',
+            name: 'pets',
+            component: () => import('../views/PetsView.vue'),
+            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER', 'ROLE_CITIZEN', 'ROLE_VET']},
+        },
+        {
+            path: '/pet/:id',
+            name: 'pet',
+            component: () => import('../views/PetView.vue'),
+            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER', 'ROLE_CITIZEN', 'ROLE_VET']},
+            children: [
+                {
+                    path: 'pet-details',
+                    name: 'pet-details',
+                    component: () => import('../views/PetDetailsView.vue'),
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER', 'ROLE_CITIZEN', 'ROLE_VET']},
+                },
+                {
+                    path: 'pet-delete',
+                    name: 'pet-delete',
+                    component: () => import('../views/PetDeleteView.vue'),
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
+                },
+                {
+                    path: 'pet-edit',
+                    name: 'pet-edit',
+                    component: () => import('../views/PetEditView.vue'),
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
+                }
+            ]
+        },
+
         {
             path: '/logout',
             name: 'logout',
