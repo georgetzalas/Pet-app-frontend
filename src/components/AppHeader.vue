@@ -35,6 +35,13 @@ const applicationStore = useApplicationStore();
                             >Courses</router-link
                         >
                     </li>-->
+                    <li class="nav-item" v-if="applicationStore.isAuthenticated === true && applicationStore.userData.roles[0] === 'ROLE_CITIZEN'">
+                        <router-link :to="{ name: 'adoption-request-create' }" class="nav-link text-white">Make an adoption</router-link>
+                    </li>
+
+                    <li class="nav-item" v-if="applicationStore.isAuthenticated === true && (applicationStore.userData.roles[0] === 'ROLE_ADMIN' || applicationStore.userData.roles[0] === 'ROLE_SHELTER')">
+                        <router-link :to="{ name: 'adoption-requests' }" class="nav-link text-white">Adoptions</router-link>
+                    </li>
 
                     <li class="nav-item" v-if="applicationStore.isAuthenticated === true && applicationStore.userData.roles[0] === 'ROLE_ADMIN'">
                         <router-link :to="{ name: 'login' }" class="nav-link text-white">Pets</router-link>
@@ -53,8 +60,6 @@ const applicationStore = useApplicationStore();
                         >
                     </li>
                     
-                  
-
                     <li class="nav-item" v-if="applicationStore.isAuthenticated === false">
                         <router-link :to="{ name: 'login' }" class="nav-link text-white">Login</router-link>
                     </li>

@@ -1,3 +1,3 @@
 <template>
-    <footer><!-- empty footer :) --></footer>
+    <!--<footer>Created by Panagiwta Sfyridi | Giwrgos Tzalas | Evangelia Baliou</footer>-->
 </template>

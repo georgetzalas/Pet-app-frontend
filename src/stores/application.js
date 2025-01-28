@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
+import { compileScript } from 'vue/compiler-sfc';
 
 function checkJWT(token) {
     if (token === null || token === undefined) {
@@ -38,5 +39,16 @@ export const useApplicationStore = defineStore('application', () => {
         return checkJWT(userData.value?.accessToken);
     });
 
-    return { userData, setUserData, persistUserData, loadUserData, clearUserData, isAuthenticated };
+    const getRole = () => {
+        let role = JSON.parse(localStorage.getItem('userData')).roles[0];
+        return role;
+    };
+
+     const getId = () => {
+        let id = JSON.parse(localStorage.getItem('userData')).id;
+        return id;
+    };
+
+
+    return { userData, setUserData, persistUserData, loadUserData, clearUserData, isAuthenticated, getRole, getId };
 });

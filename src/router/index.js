@@ -19,6 +19,12 @@ const router = createRouter({
             meta: { requiresAuth: true }
         },
         {
+            path: '/role-error',
+            name: 'role-error',
+            component: () => import('../views/WrongRoleView.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
             path: '/students',
             name: 'students',
             component: () => import('../views/StudentsView.vue'),
@@ -101,7 +107,8 @@ const router = createRouter({
         {
             path: '/users',
             name: 'users',
-            component: () => import('../views/UsersView.vue')
+            component: () => import('../views/UsersView.vue'),
+            meta: { requiresAuth: true },
         },
         {
             path: '/user/:id',
@@ -130,6 +137,44 @@ const router = createRouter({
             ]
         },
         {
+            path: '/adoption-request-create',
+            name: 'adoption-request-create',
+            component: () => import('../views/AdoptionRequestCreateView.vue'),
+            meta: { requiresAuth: true, requiredRole: true, requiredRole: ['ROLE_CITIZEN']},
+        },
+        {
+            path: '/adoption-requests',
+            name: 'adoption-requests',
+            component: () => import('../views/AdoptionRequestsView.vue'),
+            meta: { requiresAuth: true, requiredRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
+        },
+        {
+            path: '/adoption-request/:id',
+            name: 'adoption-request',
+            component: () => import('../views/AdoptionRequestView.vue'),
+            meta: { requiresAuth: true, requiredRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
+            children: [
+                {
+                    path: 'adoption-request-details',
+                    name: 'adoption-request-details',
+                    component: () => import('../views/AdoptionRequestDetailsView.vue'),
+                    meta: { requiresAuth: true, requiredRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
+                },
+                {
+                    path: 'adoption-request-delete',
+                    name: 'adoption-request-delete',
+                    component: () => import('../views/AdoptionRequestDeleteView.vue'),
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN']}
+                },
+                {
+                    path: 'adoption-request-edit',
+                    name: 'adoption-request-edit',
+                    component: () => import('../views/AdoptionRequestEditView.vue'),
+                    meta: { requiresAuth: true, requiredRole: true, requiredRole: ['ROLE_SHELTER']}
+                }
+            ]
+        },
+        {
             path: '/logout',
             name: 'logout',
             component: () => import('../views/LogoutView.vue'),
@@ -139,13 +184,24 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const { isAuthenticated } = useApplicationStore();
+    const { isAuthenticated, getRole } = useApplicationStore();
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+    const requiresRole = to.matched.some((record) => record.meta.requiresRole);
 
     if (requiresAuth && !isAuthenticated) {
         console.log('user not authenticated. redirecting to /login');
         next('/login');
-    } else {
+    } else if(requiresRole){
+        let requiredRoles = to.meta.requiredRole || [];
+        let currentRole = getRole();
+        if(!requiredRoles.includes(currentRole) && requiredRoles.length > 0)
+        {
+            console.log('wrong role. redirecting to /');
+            next('/role-error');
+        }else{
+            next();
+        }
+    }else{
         next();
     }
 });
