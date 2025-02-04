@@ -1,13 +1,9 @@
+<script setup>
+</script>
+
 <template>
-    <router-view />
-  </template>
-  
-  <script>
-  export default {
-    name: "VetView",
-  };
-  </script>
-  
-  <style scoped>
-  </style>
-  
+  <router-view />
+</template>
+
+<style scoped>
+</style>
