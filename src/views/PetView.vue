@@ -45,9 +45,13 @@ onMounted(() => {
                                     >Edit</RouterLink
                                 >
                             </li>
-
                         </ul>
                     </div>
+                    <!--<div v-if="data">
+                        <button class="btn btn-danger" @click="onDelete">
+                            Delete pet {{ data.name }} <small>({{ data.id }})</small>
+                        </button>
+                    </div>-->
                     <div>
                         <router-view></router-view>
                     </div>

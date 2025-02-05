@@ -35,12 +35,12 @@ onMounted(() => {
                                     <td colspan="5">Loading...</td>
                                 </tr>
                             </tbody>
-                            <tbody v-if="data">
+                            <tbody v-if="data && data.length > 0">
                                 <tr v-for="adoptions in data">
-                                    <td> {{ adoptions.pet.name }} </td>
-                                    <td> {{ adoptions.citizen.username }} </td>
-                                    <td>{{ adoptions.status }}</td>
-                                    <td>
+                                    <td v-if="adoptions.pet"> {{ adoptions.pet.name }} </td>
+                                    <td v-if="adoptions.citizen"> {{ adoptions.citizen.username }} </td>
+                                    <td v-if="adoptions.status">{{ adoptions.status }}</td>
+                                    <td v-if="adoptions.id">
                                         <RouterLink
                                             :to="{
                                                 name: 'adoption-request',
@@ -51,6 +51,7 @@ onMounted(() => {
                                     </td>
                                 </tr>
                             </tbody>
+                            <tbody v-else-if="!loading">No Adoption Requests</tbody>
                         </table>
                     </div>
                 </div>

@@ -208,7 +208,7 @@ const router = createRouter({
                     path: 'pet-edit',
                     name: 'pet-edit',
                     component: () => import('../views/PetEditView.vue'),
-                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_VET']},
                 }
             ]
         },
