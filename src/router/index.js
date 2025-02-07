@@ -25,6 +25,76 @@ const router = createRouter({
             meta: { requiresAuth: true }
         },
         {
+            path: '/students',
+            name: 'students',
+            component: () => import('../views/StudentsView.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/students/new',
+            name: 'student-new',
+            component: () => import('../views/CreateStudentView.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/students/:id',
+            name: 'student',
+            component: () => import('../views/StudentView.vue'),
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'student-details',
+                    component: () => import('../views/StudentDetailsView.vue'),
+                    meta: { requiresAuth: true }
+                },
+                {
+                    path: 'courses',
+                    name: 'student-courses',
+                    component: () => import('../views/StudentCoursesView.vue'),
+                    meta: { requiresAuth: true }
+                }
+            ]
+        },
+        {
+            path: '/course/:id',
+            name: 'course',
+            component: () => import('../views/CourseView.vue'),
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'course-details',
+                    component: () => import('../views/CourseDetailsView.vue'),
+                    meta: { requiresAuth: true }
+                },
+                {
+                    path: 'students',
+                    name: 'course-students',
+                    component: () => import('../views/CourseStudentsView.vue'),
+                    meta: { requiresAuth: true }
+                },
+                {
+                    path: 'delete',
+                    name: 'course-delete',
+                    component: () => import('../views/CourseDeleteView.vue'),
+                    meta: { requiresAuth: true }
+                }
+            ]
+        },
+        {
+            path: '/courses/new',
+            name: 'course-new',
+            component: () => import('../views/CreateCourceView.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/courses',
+            name: 'courses',
+            component: () => import('../views/CoursesView.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
             path: '/login',
             name: 'login',
             component: () => import('../views/LoginView.vue')
@@ -138,39 +208,42 @@ const router = createRouter({
                     path: 'pet-edit',
                     name: 'pet-edit',
                     component: () => import('../views/PetEditView.vue'),
-                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_SHELTER']},
-                }
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_VET']},
+                },
+                
             ]
         },
         {
-            path: '/citizens',
-            name: 'citizens',
-            component: () => import('../views/CitizensView.vue'),
-            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN'] }
+            path: '/medical-histories',
+            name: 'medical-histories',
+            component: () => import('../views/MedicalHistorysView.vue'),
+            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_VET']},
         },
         {
-            path: '/citizen/:id',
-            name: 'citizen-details',
-            component: () => import('../views/CitizenDetailsView.vue'),
-            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN', 'ROLE_VET', 'ROLE_SHELTER'] }
-        },
-        {
-            path: '/citizen-delete/:id',
-            name: 'citizen-delete',
-            component: () => import('../views/CitizenDeleteView.vue'),
-            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN'] }
-        },
-        {
-            path: '/citizen-create',
-            name: 'citizen-create',
-            component: () => import('../views/CitizenCreateView.vue'),
-            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_CITIZEN'] }
-        },
-        {
-            path: '/citizen-edit/:id',
-            name: 'citizen-edit',
-            component: () => import('../views/CitizenEditView.vue'),
-            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN'] }
+            path: '/medical-history/:id',
+            name: 'medical-history',
+            component: () => import('../views/MedicalHistoryView.vue'),
+            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_VET']},
+            children: [
+                {
+                    path: 'medical-history-details',
+                    name: 'medical-history-details',
+                    component: () => import('../views/MedicalHistoryDetailsView.vue'),
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: [ 'ROLE_VET']},
+                },
+                {
+                    path: 'medical-history-delete',
+                    name: 'medical-history-delete',
+                    component: () => import('../views/MedicalHistoryDeleteView.vue'),
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: [ 'ROLE_VET']},
+                },
+                {
+                    path: 'medical-history-edit',
+                    name: 'medical-history-edit',
+                    component: () => import('../views/MedicalHistoryEditView.vue'),
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: [ 'ROLE_VET']},
+                },
+            ]
         },
         {
             path: '/logout',
