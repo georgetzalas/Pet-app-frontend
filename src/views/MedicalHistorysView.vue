@@ -4,7 +4,7 @@
     <router-link to="/medical-history/new" class="btn btn-primary">
       Add New Medical History
     </router-link>
-    
+
     <table class="table">
       <thead>
         <tr>
@@ -20,11 +20,17 @@
           <td>{{ history.id }}</td>
           <td>{{ history.vet?.name ?? "Unknown Vet" }}</td>
           <td>{{ history.pet?.name ?? "Unknown Pet" }}</td>
-          <td>{{ history.healthStatus }}</td>
+          <td>{{ history.status }}</td>
           <td>
-            <router-link :to="`/medical-history/${history.id}/details`" class="btn btn-info">View</router-link>
-            <router-link :to="`/medical-history/${history.id}/edit`" class="btn btn-warning">Edit</router-link>
-            <button @click="deleteMedicalHistory(history.id)" class="btn btn-danger">Delete</button>
+            <router-link :to="`/medical-history/${history.id}/details`" class="btn btn-info">
+              View
+            </router-link>
+            <router-link :to="`/medical-history/${history.id}/edit`" class="btn btn-warning">
+              Edit
+            </router-link>
+            <button @click="deleteMedicalHistory(history.id)" class="btn btn-danger">
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>
@@ -36,25 +42,26 @@
 import { ref, onMounted } from "vue";
 
 export default {
-  name: "MedicalHistorysView",
+  name: "MedicalHistoriesView",
   setup() {
     const medicalHistories = ref([]);
-    const API_URL = "/api/medical-history";
+    const API_URL = "/api/medical-history"; // Corrected API URL
 
     // Fetch medical histories
     const fetchMedicalHistories = async () => {
       try {
-        const token = localStorage.getItem("token"); // Αν έχεις authentication
+        const token = localStorage.getItem("token");
         const response = await fetch(API_URL, {
           headers: {
-            "Authorization": `Bearer ${token}`, // Πρόσθεσε το αν χρειάζεται authentication
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         });
+
         if (!response.ok) throw new Error(`Failed to fetch data: ${response.status}`);
         medicalHistories.value = await response.json();
       } catch (error) {
-        console.error("Error fetching medical histories:", error);
+        console.error("Error fetching medical histories:", error.message);
       }
     };
 
@@ -62,24 +69,26 @@ export default {
     const deleteMedicalHistory = async (id) => {
       if (!confirm("Are you sure you want to delete this record?")) return;
       try {
-        const token = localStorage.getItem("token"); // Αν έχεις authentication
+        const token = localStorage.getItem("token");
         const response = await fetch(`${API_URL}/${id}`, {
           method: "DELETE",
           headers: {
-            "Authorization": `Bearer ${token}`, // Αν χρειάζεται
+            Authorization: `Bearer ${token}`,
           },
         });
-        if (!response.ok) throw new Error("Failed to delete record");
+
+        if (!response.ok) throw new Error(`Failed to delete: ${response.status}`);
         medicalHistories.value = medicalHistories.value.filter((history) => history.id !== id);
       } catch (error) {
-        console.error("Error deleting medical history:", error);
+        console.error("Error deleting medical history:", error.message);
       }
     };
 
+    // Fetch data when mounted
     onMounted(fetchMedicalHistories);
 
     return { medicalHistories, deleteMedicalHistory };
-  }
+  },
 };
 </script>
 
@@ -92,7 +101,8 @@ export default {
   border-collapse: collapse;
   margin-top: 1rem;
 }
-.table th, .table td {
+.table th,
+.table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
