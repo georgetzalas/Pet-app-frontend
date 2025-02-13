@@ -1,14 +1,30 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { useRemoteData } from '@/composables/useRemoteData.js';
+
+const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 const route = useRoute();
 
 const petIdRef = ref(null);
+const authRef = ref(true);
+
+const urlRef = computed(() => {
+    return backendEnvVar + '/api/pets/' + petIdRef.value;
+});
+
+const { data, loading, performRequest } = useRemoteData(urlRef, authRef);
 
 onMounted(() => {
     petIdRef.value = route.params.id;
+    performRequest();
 });
+
+const onDelete = () => {
+    alert("AAA");
+};
+
 </script>
 
 <template>
@@ -47,11 +63,11 @@ onMounted(() => {
                             </li>
                         </ul>
                     </div>
-                    <!--<div v-if="data">
+                    <div v-if="data">
                         <button class="btn btn-danger" @click="onDelete">
-                            Delete pet {{ data.name }} <small>({{ data.id }})</small>
+                            Send Email
                         </button>
-                    </div>-->
+                    </div>
                     <div>
                         <router-view></router-view>
                     </div>
