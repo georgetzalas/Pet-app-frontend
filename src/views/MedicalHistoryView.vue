@@ -11,7 +11,7 @@ const router = useRouter();
 // Form Data
 const formDataRef = ref({
   pet: {id :0}  , // Pet ID input
-  status: "GOOD", // Default status
+  healthStatus: "GOOD", // Default status
   treatment: "",
   vetNotes: "",
   vet: {id: getId()}, // Automatically set vet ID
@@ -19,7 +19,7 @@ const formDataRef = ref({
 });
 
 // API Info
-const urlRef = ref(`${backendEnvVar}/api/medical-historys`);
+const urlRef = ref(`${backendEnvVar}/api/medical-history`);
 const authRef = ref(true);
 const methodRef = ref("POST");
 
@@ -52,7 +52,7 @@ const onSubmit = async () => {
               <input
                 class="form-control"
                 id="petId"
-                v-model="formDataRef.petId"
+                v-model="formDataRef.pet.id"
                 type="text"
                 placeholder="Enter the Pet ID"
               />
@@ -60,8 +60,8 @@ const onSubmit = async () => {
 
             <!-- Status Dropdown -->
             <div class="mb-2">
-              <label for="status">Health Status</label>
-              <select class="form-control" id="status" v-model="formDataRef.status">
+              <label for="healthStatus">Health Status</label>
+              <select class="form-control" id="healthStatus" v-model="formDataRef.healthStatus">
                 <option value="GOOD">GOOD</option>
                 <option value="OK">OK</option>
                 <option value="BAD">BAD</option>

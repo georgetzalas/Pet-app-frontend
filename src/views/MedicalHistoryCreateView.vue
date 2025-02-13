@@ -18,7 +18,7 @@ const formDataRef = ref({
     date: new Date().toISOString().split('T')[0], // Default to today's date
 });
 
-const urlRef = ref(backendEnvVar + '/api/medical-historys');
+const urlRef = ref(backendEnvVar + '/api/medical-history');
 const authRef = ref(true);
 const methodRef = ref('POST');
 
