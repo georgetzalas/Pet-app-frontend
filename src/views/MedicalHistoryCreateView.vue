@@ -69,7 +69,6 @@ const onSubmit = () => {
                                 id="treatment"
                                 v-model="formDataRef.treatment"
                                 placeholder="Enter the treatment details"
-                                rows="3"
                             ></textarea>
                         </div>
                         <div class="mb-2">
@@ -79,7 +78,6 @@ const onSubmit = () => {
                                 id="vetNotes"
                                 v-model="formDataRef.vetNotes"
                                 placeholder="Additional notes from the vet"
-                                rows="3"
                             ></textarea>
                         </div>
                         <div class="mb-2">

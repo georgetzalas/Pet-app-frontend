@@ -1,46 +1,57 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
-import { useRoute } from "vue-router";
-import { useRemoteData } from "@/composables/useRemoteData.js";
-
+import { ref, computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { useRemoteData } from '@/composables/useRemoteData.js';
 const backendEnvVar = import.meta.env.VITE_BACKEND;
-const route = useRoute();
-const historyIdRef = ref(route.params.id);
 
-const urlRef = computed(() => `${backendEnvVar}/api/medical-history/${historyIdRef.value}`);
+const route = useRoute();
+
+const medicalIdRef = ref(null);
+const urlRef = computed(() => {
+    return backendEnvVar + '/api/medical-history/' + medicalIdRef.value;
+});
 const authRef = ref(true);
-const { data: medicalHistory, performRequest, isLoading, error } = useRemoteData(urlRef, authRef);
+const { data, loading, performRequest } = useRemoteData(urlRef, authRef);
 
 onMounted(() => {
-  performRequest();
+    medicalIdRef.value = route.params.id;
+    performRequest();
 });
 </script>
-
 <template>
-  <div class="medical-history-details">
-    <h1>Medical History Details</h1>
-    
-    <div v-if="isLoading">Loading...</div>
-    <div v-else-if="error">Error: {{ error.message }}</div>
-    <div v-else-if="medicalHistory">
-      <p><strong>Vet:</strong> {{ medicalHistory.vet?.name || "Unknown" }}</p>
-      <p><strong>Pet ID:</strong> {{ medicalHistory.pet?.id || "Not Available" }}</p>
-      <p><strong>Health Status:</strong> {{ medicalHistory.healthStatus || "No status provided" }}</p>
+    <div>
+        <table class="table">
+            <tbody v-if="data">
+                <tr>
+                    <th>ID</th>
+                    <td>{{ data.id }}</td>
+                </tr>
+                <tr>
+                    <th>Vet-notes</th>
+                    <td>{{ data.vetNotes }}</td>
+                </tr>
+                <tr>
+                    <th>Treatment</th>
+                    <td>{{ data.treatment }}</td>
+                </tr>
+                <tr>
+                    <th>Vet</th>
+                    <td>{{ data.vet.surname }}</td>
+                </tr>
+                <tr>
+                    <th>Pet</th>
+                    <td>{{ data.pet.name }}</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>{{ data.date }}</td>
+                </tr>
+                <tr>
+                    <th>Health-Status</th>
+                    <td>{{ data.healthStatus }}</td>
+                </tr>
+              
+            </tbody>
+        </table>
     </div>
-  </div>
 </template>
-
-<style scoped>
-.medical-history-details {
-  padding: 1rem;
-  text-align: left;
-}
-
-h1 {
-  margin-bottom: 1rem;
-}
-
-p {
-  margin: 0.5rem 0;
-}
-</style>

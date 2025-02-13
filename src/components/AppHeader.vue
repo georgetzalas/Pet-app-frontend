@@ -68,6 +68,10 @@ const applicationStore = useApplicationStore();
                         >
                     </li>
                     <li class="nav-item" v-if="applicationStore.isAuthenticated === true && applicationStore.userData.roles[0] === 'ROLE_VET'">
+                        <router-link :to="{ name: 'medical-history-create' }" class="nav-link text-white">Create Medical History</router-link>
+                    </li>
+
+                    <li class="nav-item" v-if="applicationStore.isAuthenticated === true && applicationStore.userData.roles[0] === 'ROLE_VET'">
                         <router-link :to="{ name: 'medical-histories' }" class="nav-link text-white">Medical History</router-link>
                     </li>
                     

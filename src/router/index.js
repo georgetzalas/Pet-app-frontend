@@ -214,6 +214,12 @@ const router = createRouter({
             ]
         },
         {
+            path: '/medical-history-create',
+            name: 'medical-history-create',
+            component: () => import('../views/MedicalHistoryCreateView.vue'),
+            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_VET']},
+        },
+        {
             path: '/medical-histories',
             name: 'medical-histories',
             component: () => import('../views/MedicalHistorysView.vue'),
