@@ -49,6 +49,10 @@ export const useApplicationStore = defineStore('application', () => {
         return id;
     };
 
+    const getEmail = () => {
+        let email = JSON.parse(localStorage.getItem('userData')).email
+        return email;
+    }
 
-    return { userData, setUserData, persistUserData, loadUserData, clearUserData, isAuthenticated, getRole, getId };
+    return { userData, setUserData, persistUserData, loadUserData, clearUserData, isAuthenticated, getRole, getId, getEmail };
 });

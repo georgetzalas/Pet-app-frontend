@@ -2,8 +2,10 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useRemoteData } from '@/composables/useRemoteData.js';
+import { useApplicationStore } from '@/stores/application.js';
 
 const backendEnvVar = import.meta.env.VITE_BACKEND;
+const { getEmail } = useApplicationStore();
 
 const route = useRoute();
 
@@ -17,12 +19,31 @@ const urlRef = computed(() => {
 const { data, loading, performRequest } = useRemoteData(urlRef, authRef);
 
 onMounted(() => {
+    console.log(getEmail())
     petIdRef.value = route.params.id;
     performRequest();
 });
 
-const onDelete = () => {
-    alert("AAA");
+
+
+
+const sendEmail = () => {
+    const email = computed(() => { return backendEnvVar + '/api/email/send-request/' + data.value.shelter.id + '/' + getEmail() });
+    const { performRequest: sendEmailRequest} = useRemoteData(
+        email,
+        ref(true),
+        ref('POST')
+    );
+ 
+    sendEmailRequest()
+        .then((data) => {
+            //router.push({ name: 'adoption-requests' });
+            console.log(data)
+        })
+        .catch((ignored) => {
+            console.log(ignored)
+            // TODO Handle.
+        });
 };
 
 </script>
@@ -63,8 +84,8 @@ const onDelete = () => {
                             </li>
                         </ul>
                     </div>
-                    <div v-if="data">
-                        <button class="btn btn-danger" @click="onDelete">
+                    <div class="button-container" v-if="data">
+                        <button class="btn btn-danger" @click="sendEmail">
                             Send Email
                         </button>
                     </div>
@@ -76,3 +97,12 @@ const onDelete = () => {
         </div>
     </div>
 </template>
+
+<style scoped>
+.button-container {
+    position: fixed; 
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000; 
+}
+</style>

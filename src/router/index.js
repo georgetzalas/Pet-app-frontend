@@ -246,6 +246,12 @@ const router = createRouter({
             ]
         },
         {
+            path: '/shelter-email',
+            name: 'shelter-email',
+            component: () => import('../views/ShelterEmailView.vue'),
+            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_SHELTER']}
+        },
+        {
             path: '/logout',
             name: 'logout',
             component: () => import('../views/LogoutView.vue'),

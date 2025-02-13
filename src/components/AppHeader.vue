@@ -36,6 +36,10 @@ const applicationStore = useApplicationStore();
                         >
                     </li>-->
                     <li class="nav-item" v-if="applicationStore.isAuthenticated === true && applicationStore.userData.roles[0] === 'ROLE_SHELTER'">
+                        <router-link :to="{ name: 'shelter-email' }" class="nav-link text-white">Send email</router-link>
+                    </li>
+
+                    <li class="nav-item" v-if="applicationStore.isAuthenticated === true && applicationStore.userData.roles[0] === 'ROLE_SHELTER'">
                         <router-link :to="{ name: 'pet-create' }" class="nav-link text-white">Add pet</router-link>
                     </li>
 
