@@ -48,7 +48,7 @@ const onSubmit = () => {
 
     performRequest()
         .then(() => {
-            router.push({ name: 'adoption-request-create' });
+            router.push({ name: 'pets' });
         })
         .catch((ignored) => {
             // TODO: Handle error properly
@@ -63,24 +63,22 @@ const onSubmit = () => {
                 <div class="col-12">
                     <div>
                         <!-- Pet Selection Dropdown -->
+                    <div>
                         <div class="mb-2">
-                            <label for="petSelect">Select Pet ID</label>
-                            <select
-                                class="form-select"
-                                id="petSelect"
+                            <label for="firstName">Pet ID</label>
+                            <input
+                                class="form-control"
+                                id="firstName"
                                 v-model="formDataRef.pet.id"
-                            >
-                                <option v-if="petOptions.length === 0" disabled>Loading...</option>
-                                <option v-for="pet in petOptions" :key="pet.id" :value="pet.id">
-                                    {{ pet.id }} - {{ pet.name }}
-                                </option>
-                            </select>
+                                type="number"
+                            />
                         </div>
-                        <div>
+                        <div class="">
                             <button class="btn btn-primary" @click="onSubmit" type="button">
                                 Create new adoption
                             </button>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

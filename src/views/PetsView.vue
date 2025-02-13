@@ -10,7 +10,7 @@ const baseUrl = `${backendEnvVar}/api/pets`;
 const types = ref([]); // Stores available pet types
 const regions = ref([]); // Stores available pet regions
 
-const { getRole } = useApplicationStore();
+const { getRole, getId } = useApplicationStore();
 
 // Selected Filters
 const selectedType = ref('');
@@ -59,7 +59,7 @@ watch([selectedType, selectedRegion], () => {
                     <div class="mb-4">
                         <h1 class="fs-3">Pets</h1>
                     </div>
-
+                    <pre>{{ data }}</pre>
                     <!-- Filter Dropdowns -->
                     <div class="mb-4 d-flex gap-3" v-if="getRole() == 'ROLE_CITIZEN'">
                         <!-- Type Filter (Dynamic Options) -->
@@ -95,7 +95,6 @@ watch([selectedType, selectedRegion], () => {
                             </tbody>
                             <tbody v-if="data && data.length > 0">
                                 <tr v-for="pet in data">
-                                    <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">{{ pet.id }}</td>
                                     <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">{{ pet.id }}</td>
                                     <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">{{ pet.name }}</td>
                                     <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">{{ pet.age }}</td>
@@ -136,14 +135,13 @@ watch([selectedType, selectedRegion], () => {
                             </tbody>
                             <tbody v-if="data && data.length > 0">
                                 <tr v-for="pet in data">
-                                    <td>{{ pet.id }}</td>
-                                    <td>{{ pet.id }}</td>
-                                    <td>{{ pet.name }}</td>
-                                    <td>{{ pet.age }}</td>
-                                    <td>
+                                    <td v-if="getId() === pet.shelter.id">{{ pet.id }}</td>
+                                    <td v-if="getId() === pet.shelter.id">{{ pet.name }}</td>
+                                    <td v-if="getId() === pet.shelter.id">{{ pet.age }}</td>
+                                    <td v-if="getId() === pet.shelter.id">
                                         <img :src="'data:image/png;base64,' + pet.picture" alt="Uploaded Image" width="120" height="90"/>
                                     </td>
-                                    <td>
+                                    <td v-if="getId() === pet.shelter.id">
                                         <RouterLink
                                             :to="{
                                                 name: 'pet-details',
@@ -176,7 +174,6 @@ watch([selectedType, selectedRegion], () => {
                             </tbody>
                             <tbody v-if="data && data.length > 0">
                                 <tr v-for="pet in data">
-                                    <td v-if="pet.adminApprovalStatus == 'APPROVED' && pet.vetApprovalStatus == 'APPROVED'">{{ pet.id }}</td>
                                     <td v-if="pet.adminApprovalStatus == 'APPROVED' && pet.vetApprovalStatus == 'APPROVED'">{{ pet.id }}</td>
                                     <td v-if="pet.adminApprovalStatus == 'APPROVED' && pet.vetApprovalStatus == 'APPROVED'">{{ pet.name }}</td>
                                     <td v-if="pet.adminApprovalStatus == 'APPROVED' && pet.vetApprovalStatus == 'APPROVED'">{{ pet.age }}</td>
@@ -218,7 +215,6 @@ watch([selectedType, selectedRegion], () => {
                             <tbody v-if="data && data.length > 0">
                                 <tr v-for="pet in data">
                                     <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">{{ pet.id }}</td>
-                                    <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">{{ pet.id }}</td>
                                     <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">{{ pet.name }}</td>
                                     <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">{{ pet.age }}</td>
                                     <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">
@@ -256,7 +252,6 @@ watch([selectedType, selectedRegion], () => {
                             </tbody>
                             <tbody v-if="data && data.length > 0">
                                 <tr v-for="pet in data">
-                                    <td>{{ pet.id }}</td>
                                     <td>{{ pet.id }}</td>
                                     <td>{{ pet.name }}</td>
                                     <td>{{ pet.age }}</td>

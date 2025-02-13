@@ -20,6 +20,7 @@ onMounted(() => {
                     <div class="mb-4">
                         <h1 class="fs-3">Adoptions</h1>
                     </div>
+                    <pre>{{ data }}</pre>
                     <div>
                         <table class="table">
                             <thead>
