@@ -38,14 +38,14 @@ onMounted(() => {
                                     >Details</RouterLink
                                 >
                             </li>
-                            <li v-if="userRole === 'ROLE_ADMIN'" class="nav-item">
+                            <li v-if="getRole() === 'ROLE_SHELTER'" class="nav-item">
                                 <RouterLink
                                     class="nav-link"
                                     :to="{ name: 'adoption-request-delete', params: { id: adoptionIdRef } }"
                                     >Delete</RouterLink
                                 >
                             </li>
-                            <li v-if="userRole === 'ROLE_SHELTER'" class="nav-item">
+                            <li v-if="getRole() === 'ROLE_SHELTER'" class="nav-item">
                                 <RouterLink
                                     class="nav-link"
                                     :to="{ name: 'adoption-request-edit', params: { id: adoptionIdRef } }"

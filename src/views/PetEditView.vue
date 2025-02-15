@@ -11,7 +11,7 @@ const route = useRoute();
 
 const { getRole } = useApplicationStore();
 
-const adoptionStatus = ref('');
+const approveStatus = ref('');
 const selectedOption = ref('');
 
 const petIdRef = ref(null);
@@ -119,7 +119,7 @@ const onUpdate = () => {
     }
 }
 
-const setAdoptionStatus = () =>
+const setApprovalStatus = () =>
 {
     adoptionStatus.value = selectedOption.value;
 }
@@ -128,11 +128,11 @@ const setAdoptionStatus = () =>
 </script>
 <template>
     <div v-if="data">
-        <h5>Adoption id <b>{{ data.id }}</b></h5>
-        <h5>Statues <b>{{ data.status }}</b></h5>
+        <h5>Pet ID <b>{{ data.id }}</b></h5>
+        <h5>Change approve status <b>{{ data.status }}</b></h5>
 
         <label for="dropdown">Choose an option:</label>
-        <select id="dropdown" v-model="selectedOption" @change="setAdoptionStatus">
+        <select id="dropdown" v-model="selectedOption" @change="setApprovalStatus">
             <option value="APPROVE" selected>Approve</option>
             <option value="REJECT">Reject</option>
         </select>
@@ -141,7 +141,7 @@ const setAdoptionStatus = () =>
         <br>
         
         <button class="btn btn-danger" @click="onUpdate">
-            Change adoption status {{ adoptionStatus }}
+            Change approve status {{ approveStatus }}
         </button>
     </div>
 </template>

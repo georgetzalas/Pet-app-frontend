@@ -33,12 +33,6 @@ const urlRefUpdateReject= computed(() => {
     return backendEnvVar + '/api/users' + '/' + userType.value + '/' + userIdRef.value + '/reject' ;
 });
 
-/*const { performRequest: performRequestDelete } = useRemoteData(
-    urlRefDelete,
-    ref(true),
-    ref('DELETE')
-);*/
-
 const { performRequest: performUpdateApprove } = useRemoteData(urlRefUpdateApprove, authRef, ref("POST"), dataToUpdate);
 const { performRequest: performUpdateReject } = useRemoteData(urlRefUpdateReject, authRef, ref("POST"), dataToUpdate);
 

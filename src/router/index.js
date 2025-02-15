@@ -108,31 +108,31 @@ const router = createRouter({
             path: '/users',
             name: 'users',
             component: () => import('../views/UsersView.vue'),
-            meta: { requiresAuth: true },
+            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN']},
         },
         {
             path: '/user/:id',
             name: 'user',
             component: () => import('../views/UserView.vue'),
-            meta: { requiresAuth: true },
+            meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN']},
             children: [
                 {
                     path: 'details',
                     name: 'user-details',
                     component: () => import('../views/UserDetailsView.vue'),
-                    meta: { requiresAuth: true }
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN']}
                 },
                 {
                     path: 'edit',
                     name: 'user-edit',
                     component: () => import('../views/UserEditView.vue'),
-                    meta: { requiresAuth: true }
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN']}
                 },
                 {
                     path: 'delete',
                     name: 'user-delete',
                     component: () => import('../views/UserDeleteView.vue'),
-                    meta: { requiresAuth: true }
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN']}
                 }
             ]
         },
@@ -164,7 +164,7 @@ const router = createRouter({
                     path: 'adoption-request-delete',
                     name: 'adoption-request-delete',
                     component: () => import('../views/AdoptionRequestDeleteView.vue'),
-                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_ADMIN']}
+                    meta: { requiresAuth: true, requiresRole: true, requiredRole: ['ROLE_SHELTER']}
                 },
                 {
                     path: 'adoption-request-edit',
