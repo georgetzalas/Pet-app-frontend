@@ -73,7 +73,7 @@ const onUpdate = () => {
 
     if(role === 'ROLE_ADMIN')
     {
-        if(adoptionStatus.value === "APPROVE")
+        if(approveStatus.value === "APPROVE")
         {
             performRequestAdminApprove()
             .then((data) => {
@@ -84,7 +84,7 @@ const onUpdate = () => {
             });
         }
 
-        if(adoptionStatus.value === "REJECT"){
+        if(approveStatus.value === "REJECT"){
             performRequestAdminReject()
             .then((data) => {
                 router.push({ name: 'pets' });
@@ -96,7 +96,7 @@ const onUpdate = () => {
     }
     if(role === 'ROLE_VET')
     {
-        if(adoptionStatus.value === "APPROVE")
+        if(approveStatus.value === "APPROVE")
         {
             performRequestVetApprove()
             .then((data) => {
@@ -107,7 +107,7 @@ const onUpdate = () => {
             });
         }
 
-        if(adoptionStatus.value === "REJECT"){
+        if(approveStatus.value === "REJECT"){
             performRequestVetReject()
             .then((data) => {
                 router.push({ name: 'pets' });
@@ -121,7 +121,7 @@ const onUpdate = () => {
 
 const setApprovalStatus = () =>
 {
-    adoptionStatus.value = selectedOption.value;
+    approveStatus.value = selectedOption.value;
 }
 
 

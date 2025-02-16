@@ -3,12 +3,12 @@ import { onMounted, ref, watch, computed } from 'vue';
 import { useRemoteData } from '@/composables/useRemoteData.js';
 import { useApplicationStore } from '@/stores/application.js';
 
+const { getRole, getId } = useApplicationStore();
+
 const backendEnvVar = import.meta.env.VITE_BACKEND;
 const baseUrl = `${backendEnvVar}/api/pets`;
 const typeUrl = `${backendEnvVar}/api/pets/types`;
 const regionUrl = `${backendEnvVar}/api/pets/regions`;
-
-const { getRole, getId } = useApplicationStore();
 
 const types = ref([]);
 const regions = ref([]);
@@ -98,13 +98,13 @@ watch([selectedType, selectedRegion], () => {
                             </tbody>
                             <tbody v-if="data && data.length > 0">
                                 <tr v-for="pet in data">
-                                    <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">{{ pet.id }}</td>
-                                    <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">{{ pet.name }}</td>
-                                    <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">{{ pet.age }}</td>
-                                    <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">
+                                    <td v-if="pet.vetApprovalStatus != 'REJECT'">{{ pet.id }}</td>
+                                    <td v-if="pet.vetApprovalStatus != 'REJECT'">{{ pet.name }}</td>
+                                    <td v-if="pet.vetApprovalStatus != 'REJECT'">{{ pet.age }}</td>
+                                    <td v-if="pet.vetApprovalStatus != 'REJECT'">
                                         <img :src="'data:image/png;base64,' + pet.picture" alt="Uploaded Image" width="120" height="90"/>
                                     </td>
-                                    <td v-if="pet.adminApprovalStatus == 'PENDING' || pet.vetApprovalStatus == 'PENDING'">
+                                    <td v-if="pet.vetApprovalStatus != 'REJECT'">
                                         <RouterLink
                                             :to="{
                                                 name: 'pet-details',

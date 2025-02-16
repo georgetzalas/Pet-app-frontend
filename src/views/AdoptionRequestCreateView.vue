@@ -21,30 +21,9 @@ const authRef = ref(true);
 const methodRef = ref('POST');
 const { data, performRequest } = useRemoteData(urlRef, authRef, methodRef, formDataRef);
 
-// Fetch Pets (Only Positive IDs)
-const petOptions = ref([]);
-
-const fetchPets = async () => {
-    try {
-        const response = await fetch(`${backendEnvVar}/api/pets`);
-        const pets = await response.json();
-
-        // Filter pets with positive IDs
-        petOptions.value = pets.filter(pet => pet.id > 0);
-    } catch (error) {
-        console.error("Error fetching pets:", error);
-    }
-};
-
-// Run fetchPets on mount
-onMounted(fetchPets);
-
-// Handle Form Submission
 const onSubmit = () => {
     let id = getId();
     formDataRef.value.citizen.id = id;
-
-    console.log(formDataRef);
 
     performRequest()
         .then(() => {

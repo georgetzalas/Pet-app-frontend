@@ -5,7 +5,7 @@ import { useRemoteData } from '@/composables/useRemoteData.js';
 import { useApplicationStore } from '@/stores/application.js';
 
 const backendEnvVar = import.meta.env.VITE_BACKEND;
-const { getEmail } = useApplicationStore();
+const { getEmail, getRole } = useApplicationStore();
 
 const route = useRoute();
 
@@ -68,14 +68,14 @@ const sendEmail = () => {
                                     >Details</RouterLink
                                 >
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" v-if="getRole() === 'ROLE_ADMIN' || getRole() === 'ROLE_SHELTER'">
                                 <RouterLink
                                     class="nav-link"
                                     :to="{ name: 'pet-delete', params: { id: petIdRef } }"
                                     >Delete</RouterLink
                                 >
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" v-if="getRole() === 'ROLE_ADMIN' || getRole() === 'ROLE_VET'">
                                 <RouterLink
                                     class="nav-link"
                                     :to="{ name: 'pet-edit', params: { id: petIdRef } }"
@@ -84,7 +84,7 @@ const sendEmail = () => {
                             </li>
                         </ul>
                     </div>
-                    <div class="button-container" v-if="data">
+                    <div class="button-container" v-if="data && getRole() === 'ROLE_CITIZEN'">
                         <button class="btn btn-danger" @click="sendEmail">
                             Send Email
                         </button>

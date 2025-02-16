@@ -2,7 +2,10 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useRemoteData } from '@/composables/useRemoteData.js';
+import { useApplicationStore } from '@/stores/application.js';
+
 const backendEnvVar = import.meta.env.VITE_BACKEND;
+const { getRole } = useApplicationStore();
 
 const router = useRouter();
 const route = useRoute();
@@ -66,6 +69,15 @@ private String sex;
                     <th>Sex</th>
                     <td>{{ data.sex }}</td>
                 </tr>
+				 <tr v-if="getRole() === 'ROLE_ADMIN'">
+                    <th>Approval Status</th>
+                    <td>{{ data.adminApprovalStatus }}</td>
+                </tr>
+				 <tr v-if="getRole() === 'ROLE_VET'">
+                    <th>Approval Status</th>
+                    <td>{{ data.vetApprovalStatus }}</td>
+                </tr>
+
                 <tr>
                     <th>Image</th>
                     <td><img :src="'data:image/png;base64,' + data.picture" alt="Uploaded Image" width="120" height="90"/></td>

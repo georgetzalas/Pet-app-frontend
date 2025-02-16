@@ -38,7 +38,7 @@ onMounted(() => {
                     <th>Vet</th>
                     <td>{{ data.vet.surname }}</td>
                 </tr>
-                <tr>
+                <tr v-if="data.pet">
                     <th>Pet</th>
                     <td>{{ data.pet.name }}</td>
                 </tr>

@@ -1,7 +1,11 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useRemoteData } from '@/composables/useRemoteData.js';
+import { useApplicationStore } from '@/stores/application.js';
+
 const backendEnvVar = import.meta.env.VITE_BACKEND;
+
+const { getId } = useApplicationStore();
 
 const urlRef = ref(`${backendEnvVar}/api/medical-history`);
 const authRef = ref(true);
@@ -37,10 +41,10 @@ onMounted(() => {
                             </tbody>
                             <tbody v-if="data && data.length > 0">
                                 <tr v-for="medical in data">
-                                    <td v-if="medical.pet"> {{ medical.pet.name }} </td>
-                                    <td v-if="medical.vet"> {{ medical.vet.username }} </td>
-                                    <td v-if="medical.healthStatus">{{ medical.healthStatus }}</td>
-                                    <td v-if="medical.id">
+                                    <td v-if="medical.pet && getId() === medical.vet.id"> {{ medical.pet.name }} </td>
+                                    <td v-if="medical.vet && getId() === medical.vet.id"> {{ medical.vet.username }} </td>
+                                    <td v-if="medical.healthStatus && getId() === medical.vet.id">{{ medical.healthStatus }}</td>
+                                    <td v-if="medical.id && getId() === medical.vet.id">
                                         <RouterLink
                                             :to="{
                                                 name: 'medical-history',
