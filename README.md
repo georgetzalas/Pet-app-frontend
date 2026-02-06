@@ -1,6 +1,7 @@
-## Project Ecosystem
+# Petapp Platform — Frontend
 
-This repository is the frontend of a collaborative full-stack application developed within a team environment.
+This repository contains the frontend of a collaborative **full-stack Petapp platform**, designed to support digital pet adoption services through role-based access and structured workflows.
+
 The Petapp platform is structured across multiple repositories, each supporting different layers of the system:
 
 ### Related Repositories
@@ -19,12 +20,6 @@ The Petapp platform is structured across multiple repositories, each supporting 
 
 These repositories collectively support the application's development, deployment workflows, and infrastructure configuration.
 
-# Petapp Platform — Frontend
-
-This repository contains the frontend of a collaborative **full-stack Pet Management platform**, designed to support digital pet adoption services through role-based access and structured workflows.
-
-The application provides dedicated environments for different user groups, enabling efficient management of pet-related processes such as medical tracking, shelter coordination, and administrative oversight.
-
 ---
 
 ## System Design
@@ -39,7 +34,7 @@ Automated notifications are triggered by key user actions, supporting real-time 
 
 ## User Environments & Capabilities
 
-The platform supports **four distinct user roles**, each with tailored functionality:
+The application provides dedicated environments for different user groups, enabling efficient management of pet-related processes such as medical tracking, shelter coordination, and administrative oversight.
 
 ### 🔹 Admin
 - Oversees platform operations  
